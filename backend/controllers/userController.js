@@ -53,3 +53,24 @@ exports.userLogin = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// obtener datos del usuario
+exports.userMe = async (req, res) => {
+  try {
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+      return res.status(400).json({ errores: errores.array() });
+    }
+
+    const token = req.header("Authorization")?.replace("Bearer:", "");    
+    if (!token) {
+      return res.status(401).json({ message: "Token invalido" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);    
+    const {name, email} = await User.findById(decoded.userId);
+    return res.status(200).json({name, email});
+  } catch (error) {
+    return res.status(401).json({ message: error });
+  }
+}
