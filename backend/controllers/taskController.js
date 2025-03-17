@@ -21,7 +21,16 @@ exports.createTask = async (req, res) => {
 // Obtener todas las tareas del usuario
 exports.getAllUserTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({ userId: req.body.userId });
+    const query = req.query;
+    if (req.query.search) {
+      query.$or = [
+        { title: { $regex: req.query.search, $options: "i" } },
+        { description: { $regex: req.query.search, $options: "i" } },
+      ];
+      delete query.search;
+    }
+    
+    const tasks = await Task.find({ userId: req.body.userId, ...query });
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ error: error.message });
