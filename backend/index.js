@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const auth = require('./routes/auth.routes');
+const task = require('./routes/task.routes');
 
 // Inicializa el servidor express
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Definir las rutas
 app.use("/api/auth", auth);
+app.use("/api/task", task);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
