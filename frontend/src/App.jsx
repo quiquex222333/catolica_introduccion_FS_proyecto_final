@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import logo from "/pngegg.png";
+import "./App.css";
+import { NavLink } from "react-router";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="grid place-content-evenly gap-4">
+      <div className="flex justify-center">
+        <img src={logo} className="object-contain object-cover" alt="Logo" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+      <h1 className="text-6xl">Aplicación de notas</h1>
+      <div className="text-sm/6">
+        {/* <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        </button> */}
+        <p>Registrate o inicia sesion para comenzar a crear notas</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <NavLink to="/login" end>
+        <div className="bg-sky-500/50 rounded-lg p-2 font-bold text-gray-700 hover:bg-sky-500 hover:text-white">Inicia sesion</div>
+      </NavLink>
+      <NavLink to="/register" end>
+        <div className="bg-sky-500/50 rounded-lg p-2 font-bold text-gray-700 hover:bg-sky-500 hover:text-white">Registrate ahora</div>
+      </NavLink>
+    </div>
+  );
 }
 
-export default App
+export default App;
