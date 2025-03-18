@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const connectDB = require("./config/db");
 const auth = require('./routes/auth.routes');
 const task = require('./routes/task.routes');
@@ -11,6 +12,8 @@ connectDB();
 
 // Middleware para parsear JSON
 app.use(express.json());
+// Middleware activando CORS
+app.use(cors());
 
 // Definir las rutas
 app.use("/api/auth", auth);
