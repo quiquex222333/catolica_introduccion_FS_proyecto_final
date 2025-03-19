@@ -1,10 +1,16 @@
 import axios from "axios";
 import { useNavigate } from "react-router";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: import.meta.env.VITE_TIMEOUT,
+});
+
+api.interceptors.request.use(function (config) {
+  const token = Cookies.get("authToken");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+  return config;
 });
 
 // Función genérica para manejar errores
@@ -12,7 +18,7 @@ const handleError = (error) => {
   if (error.response.status === 401) {
     Cookies.remove("authToken");
     const navigate = useNavigate();
-    navigate("/login")
+    navigate("/login");
   }
   throw error.response;
 };

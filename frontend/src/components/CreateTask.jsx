@@ -1,51 +1,50 @@
 import { useState } from "react";
+import { createTask } from "../core/api/tasks.api";
 import { useNavigate } from "react-router";
-import { createUser } from "../core/api/users.api";
 
-function Register() {
-  const [name, setname] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const navigate = useNavigate();
+export const CreateTask = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState(null);
+  const [untilDate, setUntilDate] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUser({
-        name: name,
-        email: email,
-        password: password,
+      await createTask({
+        title: title,
+        description: description,
+        untilDate: untilDate,
       });
-      navigate("/");
+      window.location.reload(); 
     } catch (error) {
-      window.alert("Los datos son incorrectos verificalos");
+      console.log(error);
+      window.alert("Error al crear tarea");
     }
   };
 
   return (
     <>
-      <h1 className="text-5xl">Registrate ahora</h1>
+      <div className="mt-5 text-3xl">Crear nueva tarea</div>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-center">
-          <div className="border-b border-gray-900/10 pb-12 w-1/2">
-            <div className="mt-10">
+          <div className="border-b border-gray-900/10 pb-8 w-1/2">
+            <div className="mt-5">
               <div className="">
                 <label
-                  htmlFor="username"
+                  htmlFor="title"
                   className="block text-sm/6 font-medium text-gray-900"
                 >
-                  Nombre
+                  Titulo
                 </label>
                 <div className="mt-2">
                   <div className="rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-sky-500">
                     <input
                       type="text"
-                      name="username"
-                      id="username"
+                      name="title"
+                      id="title"
                       className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                      placeholder="Jhon Doe"
                       onChange={(e) => {
-                        setname(e.target.value);
+                        setTitle(e.target.value);
                       }}
                     />
                   </div>
@@ -53,24 +52,23 @@ function Register() {
               </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-5">
               <div className="">
                 <label
-                  htmlFor="email"
+                  htmlFor="description"
                   className="block text-sm/6 font-medium text-gray-900"
                 >
-                  Correo Electronico
+                  Descripcion
                 </label>
                 <div className="mt-2">
                   <div className="rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-sky-500">
                     <input
                       type="text"
-                      name="email"
-                      id="email"
+                      name="description"
+                      id="description"
                       className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                      placeholder="JhonD@example.com"
                       onChange={(e) => {
-                        setemail(e.target.value);
+                        setDescription(e.target.value);
                       }}
                     />
                   </div>
@@ -78,23 +76,23 @@ function Register() {
               </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-5">
               <div className="">
                 <label
-                  htmlFor="password"
+                  htmlFor="untilDate"
                   className="block text-sm/6 font-medium text-gray-900"
                 >
-                  Contraseña
+                  Fecha Limite
                 </label>
                 <div className="mt-2">
                   <div className="rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-sky-500">
                     <input
-                      type="password"
-                      name="password"
-                      id="password"
+                      type="date"
+                      name="untilDate"
+                      id="untilDate"
                       className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                       onChange={(e) => {
-                        setpassword(e.target.value);
+                        setUntilDate(e.target.value);
                       }}
                     />
                   </div>
@@ -107,7 +105,7 @@ function Register() {
                 type="submit"
                 className="w-100 bg-sky-500/50 rounded-lg p-2 font-bold text-gray-700 hover:bg-sky-500 hover:text-white"
               >
-                Crear Cuenta
+                Agregar Tarea
               </button>
             </div>
           </div>
@@ -115,6 +113,4 @@ function Register() {
       </form>
     </>
   );
-}
-
-export default Register;
+};
