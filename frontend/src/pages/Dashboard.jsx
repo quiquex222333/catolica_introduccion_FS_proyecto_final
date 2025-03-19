@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllMyTasks } from "../core/api/tasks.api";
 import { CreateTask } from "../components/CreateTask";
+import { CardList } from "../components/CardList";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState(null);
@@ -31,18 +32,10 @@ export default function Dashboard() {
       <div className="text-5xl">Dashboard</div>
       <CreateTask/>
       <div>
-        Colums component
         <div className="mt-4 grid grid-cols-3 gap-4">
-          <div>hello</div>
-          <div>world</div>
-          <div>hehehe</div>
-          <div>hello</div>
-          <div>world</div>
-          <div>hehehe</div>
-          <div>hello</div>
-          <div>world</div>
-          <div>hehehe</div>
-
+          <CardList title="TODO" color="red"/>
+          <CardList title="En Progreso" color="yellow"/>
+          <CardList title="Completo" color="green"/>
         </div>
       </div>
     </>
