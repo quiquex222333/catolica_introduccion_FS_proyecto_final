@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useNavigate } from "react-router";
+import Cookies from 'js-cookie';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -7,8 +9,12 @@ const api = axios.create({
 
 // Función genérica para manejar errores
 const handleError = (error) => {
-  console.error("Error en la petición:", error);
-  throw error.response ? error.response.data : error;
+  if (error.response.status === 401) {
+    Cookies.remove("authToken");
+    const navigate = useNavigate();
+    navigate("/login")
+  }
+  throw error.response;
 };
 
 // Métodos CRUD con `async/await`

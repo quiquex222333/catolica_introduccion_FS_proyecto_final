@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { createUser } from "../../core/users/users.api";
+import { createUser } from "../core/users/users.api";
 
 function Register() {
   const [name, setname] = useState("");
@@ -18,7 +18,7 @@ function Register() {
       });
       navigate("/");
     } catch (error) {
-      window.alert("los datos son incorrectos verificalos");
+      window.alert("Los datos son incorrectos verificalos");
     }
   };
 
