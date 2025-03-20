@@ -14,7 +14,6 @@ function ProfileInfo() {
       try {
         const response = await infoUser();
         setUser(response);
-        console.log(user);
       } catch (err) {
         setError(err.message);
       } finally {

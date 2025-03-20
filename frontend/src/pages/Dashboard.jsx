@@ -14,7 +14,6 @@ export default function Dashboard() {
       try {
         const response = await getAllMyTasks();
         setTasks(response);
-        console.log(tasks);
       } catch (err) {
         setError(err.message);
       } finally {

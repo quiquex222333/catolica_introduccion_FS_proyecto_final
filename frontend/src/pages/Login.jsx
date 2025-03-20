@@ -16,7 +16,6 @@ function Login() {
       });
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
       if (error.status === 404) {
         window.alert("Usuario no encontrado");
       } else {

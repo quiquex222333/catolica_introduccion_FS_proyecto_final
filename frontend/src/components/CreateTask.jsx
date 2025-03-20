@@ -17,7 +17,6 @@ export const CreateTask = () => {
       });
       window.location.reload();
     } catch (error) {
-      console.log(error);
       window.alert("Error al crear tarea");
     }
   };

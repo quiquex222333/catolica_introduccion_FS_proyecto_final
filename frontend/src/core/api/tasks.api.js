@@ -31,12 +31,24 @@ const moveTask = async (task) => {
   }
 };
 
+const updateTask = async (id, title, description, untilDate) => {
+  try {
+    await requester.put(`/task/${id}`, {
+      title: title,
+      description: description,
+      untilDate: untilDate,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deleteTask = async (task) => {
   try {
-    await requester.delete(`/task/${task._id}`)
+    await requester.delete(`/task/${task._id}`);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-export { getAllMyTasks, createTask, moveTask, deleteTask };
+export { getAllMyTasks, createTask, moveTask, updateTask, deleteTask };

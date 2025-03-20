@@ -13,7 +13,6 @@ const loginUser = async (data) => {
   try {
     const response = await requester.post("/auth/login", data);
     Cookies.set('authToken', response.token);
-    console.log(response);
   } catch (error) {
     throw error;
   }
