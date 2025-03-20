@@ -24,6 +24,17 @@ export const Card = ({ color, task }) => {
     date = new Date(task.untilDate).toISOString().split("T")[0];
   }
 
+  let bgColor = "bg-yellow-300";
+  let brColor = "border-yellow-400";
+  if (color === 'red') {
+    bgColor = "bg-red-300";
+    brColor = "border-red-400"
+  }
+  if (color === "green") {
+    bgColor = "bg-green-300";
+    brColor = "border-green-400"
+  }
+
   return (
     <div className="bg-gray-100 py-3 mb-1 rounded-lg border-2 border-gray-300">
       <div className="flex">
@@ -31,7 +42,7 @@ export const Card = ({ color, task }) => {
           {task.title}
         </div>
         <div
-          className={`w-30 flex-1 bg-${color}-300 mx-3 rounded-full border-${color}-400 border-1`}
+          className={`w-30 flex-1 ${bgColor} mx-3 rounded-full ${brColor} border-1`}
         ></div>
       </div>
 

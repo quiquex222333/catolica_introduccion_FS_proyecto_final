@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllMyTasks } from "../core/api/tasks.api";
 import { CreateTask } from "../components/CreateTask";
 import { CardList } from "../components/CardList";
+import DropdownButton from "../components/DropDownBtn";
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState(null);
@@ -28,6 +29,7 @@ export default function Dashboard() {
 
   return (
     <>
+      <DropdownButton />
       <div className="text-5xl">Dashboard</div>
       <CreateTask />
       <div>

@@ -19,4 +19,12 @@ const loginUser = async (data) => {
   }
 };
 
-export { createUser, loginUser };
+const logoutUser = () => {
+  try {
+    Cookies.remove("authToken");
+  } catch (error){
+    throw error;
+  }
+}
+
+export { createUser, loginUser, logoutUser };
