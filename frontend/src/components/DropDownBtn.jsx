@@ -16,6 +16,14 @@ export default function DropdownButton() {
     }
   }
 
+  const handleMe = () => {
+    navigate("/me")
+  }
+
+  const handleDashboard = () => {
+    navigate("/dashboard")
+  }
+
   return (
     <div className="fixed top-4 right-4 inline-block text-left">
       <button
@@ -28,9 +36,15 @@ export default function DropdownButton() {
         <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
           <button
             className="block w-full px-4 py-2 text-left hover:bg-gray-100"
-            onClick={() => alert('Mi información')}
+            onClick={handleMe}
           >
             Mi información
+          </button>
+          <button
+            className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+            onClick={handleDashboard}
+          >
+            Mis Tareas
           </button>
           <button
             className="block w-full px-4 py-2 text-left hover:bg-gray-100"

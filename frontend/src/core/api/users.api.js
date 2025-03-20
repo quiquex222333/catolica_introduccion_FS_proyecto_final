@@ -27,4 +27,13 @@ const logoutUser = () => {
   }
 }
 
-export { createUser, loginUser, logoutUser };
+const infoUser = async () => {
+  try {
+    const response = await requester.get("/auth/me");
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { createUser, loginUser, logoutUser, infoUser };
