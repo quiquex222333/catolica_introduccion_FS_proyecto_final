@@ -12,9 +12,8 @@ export default function Dashboard() {
     const getData = async () => {
       try {
         const response = await getAllMyTasks();
-        console.log(response);
-
         setTasks(response);
+        console.log(tasks);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -30,12 +29,24 @@ export default function Dashboard() {
   return (
     <>
       <div className="text-5xl">Dashboard</div>
-      <CreateTask/>
+      <CreateTask />
       <div>
         <div className="mt-4 grid grid-cols-3 gap-4">
-          <CardList title="TODO" color="red"/>
-          <CardList title="En Progreso" color="yellow"/>
-          <CardList title="Completo" color="green"/>
+          <CardList
+            title="TODO"
+            color="red"
+            tasks={tasks.filter((task) => task.status === "pending")}
+          />
+          <CardList
+            title="En Progreso"
+            color="yellow"
+            tasks={tasks.filter((task) => task.status === "in-progress")}
+          />
+          <CardList
+            title="Completo"
+            color="green"
+            tasks={tasks.filter((task) => task.status === "completed")}
+          />
         </div>
       </div>
     </>
