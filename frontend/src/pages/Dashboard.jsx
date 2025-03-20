@@ -31,7 +31,7 @@ export default function Dashboard() {
       <div className="text-5xl">Dashboard</div>
       <CreateTask />
       <div>
-        <div className="mt-4 grid grid-cols-3 gap-4">
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           <CardList
             title="TODO"
             color="red"

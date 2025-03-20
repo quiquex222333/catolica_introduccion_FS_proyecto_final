@@ -1,4 +1,24 @@
+import { deleteTask, moveTask } from "../core/api/tasks.api";
+
 export const Card = ({ color, task }) => {
+  const handleClickUpdate = async () => {
+    try {
+      await moveTask(task);
+      window.location.reload();
+    } catch (error) {
+      window.alert("Error al mover la tarea");
+    }
+  };
+
+  const handleClickDelete = async () => {
+    try {
+      await deleteTask(task)
+      window.location.reload()
+    } catch {
+      window.alert("Error al eliminar la tarea");
+    }
+  }
+
   let date;
   if (task.untilDate) {
     date = new Date(task.untilDate).toISOString().split("T")[0];
@@ -25,11 +45,26 @@ export const Card = ({ color, task }) => {
         <div className="text-left mx-3 text-gray-400">Fecha Limite: {date}</div>
       ) : null}
 
-      {task.status === "completed" ? null : (
-        <button className="bg-blue-500 px-9 py-1 mx-4 mt-2 rounded-lg text-white">
-          {task.status === "pending" ? "Empezar a trabajar" : "Completar"}
-        </button>
-      )}
+      <div className="grid grid-cols-6">
+        <div className="col-span-4">
+          {task.status === "completed" ? null : (
+            <button
+              className="bg-blue-500 px-9 py-1 mx-4 mt-2 rounded-lg text-white"
+              onClick={handleClickUpdate}
+            >
+              {task.status === "pending" ? "Empezar a trabajar" : "Completar"}
+            </button>
+          )}
+        </div>
+        <div className="col-span-2">
+          <button
+            className="bg-red-500 px-3 py-1 mt-2 rounded-lg text-white"
+            onClick={handleClickDelete}
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
