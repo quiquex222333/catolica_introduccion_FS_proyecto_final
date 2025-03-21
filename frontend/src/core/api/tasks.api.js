@@ -50,4 +50,25 @@ const deleteTask = async (task) => {
   }
 };
 
-export { getAllMyTasks, createTask, moveTask, updateTask, deleteTask };
+const getFilteredTasks = async ({search, status, untilDate}) => {
+  let params = {}
+  params = search ? {search} : params;
+  params = status ? {...params, status} : params;
+  params = untilDate ? {...params, untilDate} : params;  
+  
+  try {
+    const response = await requester.get("/task", params);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export {
+  getAllMyTasks,
+  getFilteredTasks,
+  createTask,
+  moveTask,
+  updateTask,
+  deleteTask,
+};

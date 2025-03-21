@@ -3,6 +3,7 @@ import {
   createTask,
   deleteTask,
   getAllMyTasks,
+  getFilteredTasks,
   moveTask,
   updateTask,
 } from "../core/api/tasks.api";
@@ -29,6 +30,16 @@ export const TaskProvider = ({ children }) => {
     };
     fetchTasks();
   }, []);
+
+  // Obtener todas las tareas
+  const getAllTasks = async () => {
+    try {
+      const data = await getAllMyTasks();
+      setTasks(data);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   // Agregar una tarea nueva y enviarla a la API
   const addTask = async (title, description, untilDate) => {
@@ -83,9 +94,29 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  // Obtener tareas con filtro
+  const onFilter = async ({search, status, untilDate}) => {
+    try {
+      const response = await getFilteredTasks({search, status, untilDate});
+      setTasks(response);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   return (
     <TaskContext.Provider
-      value={{ tasks, addTask, updateTaskStatus, updateTaskContent, eraseTask, loading, error }}
+      value={{
+        tasks,
+        getAllTasks,
+        addTask,
+        updateTaskStatus,
+        updateTaskContent,
+        eraseTask,
+        onFilter,
+        loading,
+        error,
+      }}
     >
       {children}
     </TaskContext.Provider>

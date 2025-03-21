@@ -105,7 +105,7 @@ function Register() {
             <div className="mt-8">
               <button
                 type="submit"
-                className="w-100 bg-sky-500/50 rounded-lg p-2 font-bold text-gray-700 hover:bg-sky-500 hover:text-white"
+                className="w-1/2 md:w-100 bg-sky-500/50 rounded-lg p-2 font-bold text-gray-700 hover:bg-sky-500 hover:text-white"
               >
                 Crear Cuenta
               </button>

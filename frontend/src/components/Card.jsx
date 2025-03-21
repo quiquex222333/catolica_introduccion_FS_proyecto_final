@@ -59,7 +59,7 @@ export const Card = ({ task }) => {
   return (
     <div className="bg-gray-100 py-3 mb-1 rounded-lg border-2 border-gray-300">
       <div className="flex">
-        <div className="w-70 flex-none text-left mx-3 text-xl text-gray-500">
+        <div className="flex-none text-left mx-3 text-xl text-gray-500">
           {editTask.title}
         </div>
         {task.status === "completed" ? null : (
