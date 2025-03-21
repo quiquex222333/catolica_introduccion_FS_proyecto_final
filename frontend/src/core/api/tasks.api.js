@@ -1,4 +1,3 @@
-import { data } from "react-router";
 import { requester } from "../requester";
 
 const getAllMyTasks = async () => {

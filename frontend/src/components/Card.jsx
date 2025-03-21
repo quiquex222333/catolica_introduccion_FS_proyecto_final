@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { deleteTask, moveTask, updateTask } from "../core/api/tasks.api";
+import { useTasks } from "../context/TaskContext";
 
 export const Card = ({ task }) => {
+  const { updateTaskStatus, updateTaskContent, eraseTask } = useTasks();
   const [editTask, setEditTask] = useState(task);
 
-  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(task);
   const [showModal, setShowModal] = useState(false);
 
   const handleClickUpdate = async () => {
     try {
-      await moveTask(task);
-      window.location.reload();
+      await updateTaskStatus(task);
     } catch (error) {
       window.alert("Error al mover la tarea");
     }
@@ -21,8 +21,7 @@ export const Card = ({ task }) => {
 
   const handleClickDelete = async () => {
     try {
-      await deleteTask(task);
-      window.location.reload();
+      await eraseTask(task);
     } catch {
       window.alert("Error al eliminar la tarea");
     }
@@ -34,11 +33,11 @@ export const Card = ({ task }) => {
 
   const handleSave = async () => {
     try {
-      await updateTask(formData._id, formData.title, formData.description, formData.untilDate)
+      await updateTaskContent(formData);
       setEditTask(formData);
       closeModal();
     } catch (error) {
-      window.alert("Error al actualizar tarea")
+      window.alert("Error al actualizar tarea");
     }
   };
 
@@ -63,12 +62,15 @@ export const Card = ({ task }) => {
         <div className="w-70 flex-none text-left mx-3 text-xl text-gray-500">
           {editTask.title}
         </div>
-        <button
-          className="top-4 right-4 w-10 h-10 flex items-center justify-center bg-orange-400 text-white rounded-full shadow-lg hover:bg-blue-600"
-          onClick={openModal}
-        >
-          <FiEdit size={20} />
-        </button>
+        {task.status === "completed" ? null : (
+          <button
+            className="top-4 right-4 w-10 h-10 flex items-center justify-center bg-orange-400 text-white rounded-full shadow-lg hover:bg-blue-600"
+            onClick={openModal}
+          >
+            <FiEdit size={20} />
+          </button>
+        )}
+
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
             <div

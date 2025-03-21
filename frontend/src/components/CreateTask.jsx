@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { createTask } from "../core/api/tasks.api";
-import { useNavigate } from "react-router";
+import { useTasks } from "../context/TaskContext";
 
 export const CreateTask = () => {
+  const { addTask } = useTasks();
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState(null);
-  const [untilDate, setUntilDate] = useState(null);
+  const [description, setDescription] = useState("");
+  const [untilDate, setUntilDate] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createTask({
-        title: title,
-        description: description,
-        untilDate: untilDate,
-      });
-      window.location.reload();
+      if (!title) return;
+      await addTask(title, description, untilDate);
+      setTitle("");
+      setDescription("");
+      setUntilDate("");
     } catch (error) {
       window.alert("Error al crear tarea");
     }
@@ -41,6 +40,7 @@ export const CreateTask = () => {
                       type="text"
                       name="title"
                       id="title"
+                      value={title}
                       className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                       onChange={(e) => {
                         setTitle(e.target.value);
@@ -65,6 +65,7 @@ export const CreateTask = () => {
                       type="text"
                       name="description"
                       id="description"
+                      value={description}
                       className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                       onChange={(e) => {
                         setDescription(e.target.value);
@@ -89,6 +90,7 @@ export const CreateTask = () => {
                       type="date"
                       name="untilDate"
                       id="untilDate"
+                      value={untilDate}
                       className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                       onChange={(e) => {
                         setUntilDate(e.target.value);
